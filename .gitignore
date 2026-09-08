@@ -31,3 +31,6 @@ logs/
 
 #Generated raw data
 data/raw/*.csv
+
+#Pytest
+.pytest_cache/
