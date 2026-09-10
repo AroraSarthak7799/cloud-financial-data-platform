@@ -2,3 +2,4 @@ pandas
 faker
 python-dotenv
 pytest
+boto3[crt]
