@@ -33,7 +33,9 @@ models:
   cloud_financial_dbt:
     staging:
       +materialized: view
+      +schema: STAGING
 
     marts:
       +materialized: table
+      +schema: MARTS
       
