@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: raw
+    database: CLOUD_FINANCIAL_DB
+    schema: RAW
+
+    tables:
+      - name: customers
+      - name: dealers
+      - name: vehicles
+      - name: loans
+      - name: payments
