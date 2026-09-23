@@ -1,0 +1,77 @@
+version: 2
+
+models:
+  - name: dim_customer
+    columns:
+      - name: customer_id
+        data_tests:
+          - not_null
+          - unique
+
+  - name: dim_dealer
+    columns:
+      - name: dealer_id
+        data_tests:
+          - not_null
+          - unique
+
+  - name: dim_vehicle
+    columns:
+      - name: vehicle_id
+        data_tests:
+          - not_null
+          - unique
+
+      - name: vin
+        data_tests:
+          - not_null
+          - unique
+
+      - name: dealer_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_dealer')
+                field: dealer_id
+
+  - name: fact_loan
+    columns:
+      - name: loan_id
+        data_tests:
+          - not_null
+          - unique
+
+      - name: customer_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_customer')
+                field: customer_id
+
+      - name: vehicle_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_vehicle')
+                field: vehicle_id
+
+      - name: dealer_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_dealer')
+                field: dealer_id
+
+  - name: fact_payment
+    columns:
+      - name: payment_id
+        data_tests:
+          - not_null
+          - unique
+
+      - name: loan_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('fact_loan')
+                field: loan_id
