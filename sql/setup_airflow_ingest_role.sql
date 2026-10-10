@@ -1,0 +1,34 @@
+USE ROLE ACCOUNTADMIN;
+
+-- Create a dedicated role for Airflow ingestion
+CREATE ROLE IF NOT EXISTS AIRFLOW_INGEST_ROLE
+    COMMENT = 'Least-privilege role for Airflow RAW ingestion';
+
+-- Grant this role to the current Snowflake user
+SET ingest_user = CURRENT_USER();
+
+GRANT ROLE AIRFLOW_INGEST_ROLE
+TO USER IDENTIFIER($ingest_user);
+
+-- Allow Airflow to use the warehouse
+GRANT USAGE ON WAREHOUSE CLOUD_FINANCIAL_WH
+TO ROLE AIRFLOW_INGEST_ROLE;
+
+-- Allow access to the database and RAW schema
+GRANT USAGE ON DATABASE CLOUD_FINANCIAL_DB
+TO ROLE AIRFLOW_INGEST_ROLE;
+
+GRANT USAGE ON SCHEMA CLOUD_FINANCIAL_DB.RAW
+TO ROLE AIRFLOW_INGEST_ROLE;
+
+-- Allow Airflow to read files from the external stage
+GRANT USAGE ON STAGE CLOUD_FINANCIAL_DB.RAW.S3_RAW_STAGE
+TO ROLE AIRFLOW_INGEST_ROLE;
+
+-- Allow insertion into existing RAW tables
+GRANT INSERT ON ALL TABLES IN SCHEMA CLOUD_FINANCIAL_DB.RAW
+TO ROLE AIRFLOW_INGEST_ROLE;
+
+-- Apply INSERT permissions to future RAW tables
+GRANT INSERT ON FUTURE TABLES IN SCHEMA CLOUD_FINANCIAL_DB.RAW
+TO ROLE AIRFLOW_INGEST_ROLE;

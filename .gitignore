@@ -35,3 +35,10 @@ data/raw/*.csv
 
 #Pytest
 .pytest_cache/
+.venv-airflow/
+
+# Airflow local runtime
+airflow/.env
+airflow/logs/
+airflow/config/
+airflow/plugins/
