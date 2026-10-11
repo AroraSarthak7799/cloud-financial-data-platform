@@ -1,0 +1,14 @@
+cloud_financial_dbt:
+  target: ci
+
+  outputs:
+    ci:
+      type: snowflake
+      account: ci_dummy_account
+      user: ci_dummy_user
+      password: ci_placeholder_not_a_real_password
+      role: CI_ROLE
+      database: CI_DATABASE
+      warehouse: CI_WAREHOUSE
+      schema: CI
+      threads: 4
