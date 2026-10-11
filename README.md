@@ -30,9 +30,9 @@ flowchart TB
     B --> C[(Amazon S3<br/>raw/ prefixes)]
     C -->|External stage + COPY INTO| D[(Snowflake RAW<br/>5 tables)]
     D --> E[dbt STAGING<br/>5 views]
-    E --> F[(dbt MARTS<br/>3 dimensions + 2 facts)]
-    E --> G[(dbt HISTORY<br/>Customer SCD Type 2)]
-    F --> H[SQL business analytics<br/>Portfolio and payment KPIs]
+    E --> F[(dbt MARTS<br/>5 models)]
+    E --> G[(dbt HISTORY<br/>SCD Type 2)]
+    F --> H[SQL analytics<br/>Loan + payments]
     I[Apache Airflow<br/>Docker Compose] -.->|Orchestrates ingestion,<br/>dbt run/test/snapshot| C
     I -.-> D
     I -.-> E
