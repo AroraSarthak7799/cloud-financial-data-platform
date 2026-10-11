@@ -25,7 +25,7 @@ Counts and test outcomes above reflect a completed demonstration run, not real-t
 ## Architecture
 
 ```mermaid
-flowchart LR
+flowchart TB
     A[Python + Faker<br/>Synthetic source data] --> B[CSV files]
     B --> C[(Amazon S3<br/>raw/ prefixes)]
     C -->|External stage + COPY INTO| D[(Snowflake RAW<br/>5 tables)]
